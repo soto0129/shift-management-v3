@@ -1,0 +1,88 @@
+# シフト管理システム
+
+制約条件に基づいてスタッフのシフトを自動生成するWebアプリケーション。
+
+## 概要
+
+飲食店などでシフト作成は手作業で行われることが多く、時間がかかる上に公平な割り振りが難しいという課題があります。このシステムでは、スタッフの登録と条件設定を行うだけで、制約を満たすシフトを自動生成できます。
+
+## 主な機能
+
+- ユーザー認証（メール・パスワード）
+- スタッフの登録・編集・削除
+- シフトの自動生成（連続勤務制限、週の上限などを考慮）
+- 月間カレンダーでのシフト確認・編集
+- 勤務時間・人件費の集計
+
+## 技術スタック
+
+| 分類 | 技術 |
+|------|------|
+| フロントエンド | Next.js 14, React 18, Tailwind CSS |
+| バックエンド | Next.js API Routes |
+| データベース | Supabase (PostgreSQL) |
+| 認証 | Supabase Auth |
+| ホスティング | Vercel |
+
+## ディレクトリ構成
+
+```
+shift-management/
+├── app/
+│   ├── page.js              # ホーム画面
+│   ├── login/page.js        # ログイン
+│   ├── signup/page.js       # 新規登録
+│   ├── staff/page.js        # スタッフ管理
+│   ├── shifts/page.js       # シフト自動生成
+│   ├── shifts/calendar/page.js  # カレンダー
+│   ├── analytics/page.js    # 勤務統計
+│   └── api/generate-shift/  # シフト生成API
+├── components/
+├── contexts/
+├── lib/
+├── database/
+└── middleware.js
+```
+
+## セットアップ
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/yourname/shift-management.git
+cd shift-management
+
+# 依存関係をインストール
+npm install
+
+# 環境変数を設定
+cp .env.example .env.local
+# .env.localにSupabaseのURLとキーを記入
+
+# データベースをセットアップ
+# Supabaseの SQL Editor で database/schema.sql を実行
+
+# 開発サーバーを起動
+npm run dev
+```
+
+http://localhost:3000 でアクセスできます。
+
+## シフト生成アルゴリズム
+
+1. 日付ごとにループ処理
+2. 利用可能なスタッフを抽出（連続勤務・週の制限をチェック）
+3. 勤務回数が少ないスタッフを優先してスコアリング
+4. スコア順に必要人数を割り当て
+
+制約条件:
+- 連続勤務: 最大3日
+- 週の勤務: 最大5日
+- 1日の人数: 最小2名〜最大3名（設定可能）
+
+## 開発期間
+
+2025年12月〜2026年2月
+
+## ライセンス
+
+MIT
