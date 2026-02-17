@@ -57,7 +57,7 @@ shift-management/
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/yourname/shift-management.git
+git clone https://github.com/soto0129/shift-management-v3.git
 cd shift-management
 
 # 依存関係をインストール
